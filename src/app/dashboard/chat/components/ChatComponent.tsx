@@ -200,7 +200,7 @@ Just let me know what you need.`;
 
 Thank you for your message. To provide you with the most accurate information, could you please provide more details about your health concern?
 
-### I can help with:
+### I can help you with:
 - Symptom assessment and guidance
 - General health information
 - Wellness recommendations
