@@ -7,7 +7,7 @@ import ChatComponent from "./components/ChatComponent";
 import KnowledgeComponent from "./components/KnowledgeComponent";
 
 export default function ChatInterface() {
-  const [activeTab, setActiveTab] = useState("knowledge");
+  const [activeTab, setActiveTab] = useState("chat");
 
   const toggleTab = () => {
     setActiveTab(activeTab === "chat" ? "knowledge" : "chat");

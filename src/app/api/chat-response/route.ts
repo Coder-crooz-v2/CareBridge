@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import Groq from "groq-sdk";
 import { AxiosError } from "axios";
+import { getChatbotPrompt } from "@/prompts/chatbot";
 
 export async function POST(request: Request) {
   try {
@@ -8,16 +9,30 @@ export async function POST(request: Request) {
       apiKey: process.env.GROQ_API_KEY, // Changed from NEXT_PUBLIC_GROQ_API_KEY
     });
 
-    const { messages } = await request.json();
+    const { userInput } = await request.json();
 
     const chatCompletion = await groq.chat.completions.create({
-      messages: messages || [
+      messages: [
+        {
+          role: "system",
+          content: getChatbotPrompt(),
+        },
         {
           role: "user",
-          content: "Explain the importance of fast language models",
+          content: [
+            {
+              type: "text",
+              text: userInput,
+            },
+          ],
         },
       ],
-      model: "llama-3.3-70b-versatile",
+      model: "meta-llama/llama-4-scout-17b-16e-instruct",
+      temperature: 1,
+      max_completion_tokens: 1024,
+      top_p: 1,
+      stream: false,
+      stop: null,
     });
 
     return NextResponse.json({

@@ -21,7 +21,9 @@ export async function login({
     password: password,
   };
 
-  const { error, data: responseData } = await supabase.auth.signInWithPassword(data);
+  const { error, data: responseData } = await supabase.auth.signInWithPassword(
+    data
+  );
 
   if (error) {
     return { error: error.message };
@@ -69,4 +71,16 @@ export async function signup({
   }
 
   return { user: responseData.user };
+}
+
+export async function logout() {
+  const supabase = await createClient();
+
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { message: "Logged out successfully" };
 }
